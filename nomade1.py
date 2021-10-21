@@ -9,18 +9,11 @@ soup = BeautifulSoup(html_file, "lxml")
 
 
 # %%
-seasons = soup.find_all('ul')
-for season in seasons:
-    vods = season.find_all('li')
-    for vod in vods:
-        extract_from_vod(vod)
-
-
+vods = soup.select('li[class=course]')
+for vod in vods:
+    print(vod.text, end='')
+    print(vod.a['href'])
 # %%
-def extract_from_vod(vod):
-    title = vod.find('a').text
-    link = vod.a['href']
-    print(title, link)
 
 
 # %%

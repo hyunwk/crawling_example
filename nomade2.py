@@ -2,21 +2,13 @@
 # To add a new markdown cell, type '# %% [markdown]'
 # %%
 import requests
+import json
 from bs4 import BeautifulSoup
 
-html_file = requests.get('https://askdjango.github.io/lv2/').text
-soup = BeautifulSoup(html_file, "lxml")
+json_url = ('https://askdjango.github.io/lv2/data.json')
+json_string = requests.get(json_url).text
 
-
-# %%
-vods = soup.select('li[class=course]')
-for vod in vods:
-    print(vod.text, end='')
-    print(vod.a['href'])
-# %%
-
-
-# %%
-
-
-# %%
+data_list = json.loads(json_string)
+for data in data_list.values():
+    for item in data:
+        print(item['name'], item['url'])
